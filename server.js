@@ -16,12 +16,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger('dev'));
 
-
 const authUser = process.env.WOOF_USER;
 const authPass = process.env.WOOF_PASSWORD;
+console.log(authUser);
+console.log(authPass);
 
 app.use(basicAuth({
-    users: { authUser:authPass }
+  authorizer: (username, password) => {
+    return username === authUser && password === authPass;
+  }
 }));
 
 app.use('/api/conversation', conversation);
@@ -31,7 +34,7 @@ app.post('/*', (req, res) => {
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -39,7 +42,7 @@ app.use(function(req, res, next) {
 
 // error handler
 // no stacktraces leaked to user unless in development environment
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500).send({
     message: err.message,
     error: (app.get('env') === 'development') ? err : {}

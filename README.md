@@ -43,9 +43,8 @@ This API use `Basic Authentication`
     ```
     {
         "transcript":"I'm happy",
-        "sentiment": {
-            "pos":10,
-            "neg":90
+        "documents": {
+            "score":0.87231002391
         }
     }
     ```

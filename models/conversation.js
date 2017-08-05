@@ -3,10 +3,9 @@ var Schema = mongoose.Schema;
 
 // create a schema
 var conversationSchema = new Schema({
-  transacript: String,
-  sentiment: {
-    pos: Number,
-    neg: Number
+  transcript: String,
+  documents: {
+    score: Number
   },
   created_at: Date,
   updated_at: Date
