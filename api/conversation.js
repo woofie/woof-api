@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
     const data = new conversation({
         transcript: req.body.transcript,
         documents: {
-            score: req.body.documents.score
+            score: req.body.data.documents[0].score
         }
     });
 
