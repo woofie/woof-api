@@ -8,12 +8,13 @@ router.get('/', function(req, res) {
             res.status(500).send(err);
         }
         res.status(200).send(conversations);
-    })
+    });
 });
 
 router.post('/', (req, res) => {
     const data = new conversation({
-        transacript: req.body.transcript,
+        transcript: req.body.transcript,
+        score: req.body.score,
         sentiment: {
             pos: req.body.sentiment.pos,
             neg: req.body.sentiment.neg

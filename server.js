@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const debug = require('debug');
 const Mongoose = require('mongoose');
+const basicAuth = require('express-basic-auth')
 
 const conversation = require('./api/conversation');
 
@@ -15,10 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger('dev'));
 
-// Express only serves static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
+
+const authUser = process.env.WOOF_USER;
+const authPass = process.env.WOOF_PASSWORD;
+
+app.use(basicAuth({
+    users: { authUser:authPass }
+}));
 
 app.use('/api/conversation', conversation);
 
